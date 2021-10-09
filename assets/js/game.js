@@ -116,18 +116,31 @@ promptFight = promptFight.toLowerCase();
 
 var fight = function(enemy) {
 
+  // keep track of who goes first
+var isPlayerTurn = true;
+
+if (Math.random() > 0.5) {
+  isPlayerTurn = false;
+} 
+
+
 
     // if player choses to fight, then fight
   // repeat and execute as long as the enemy-robot is alive 
   while(enemy.health > 0 && playerInfo.health > 0) {
 
-    if (fightOrSkip()) {
-      break;
-    }
+    if (isPlayerTurn) {
+      // ask player if they'd like to fight or skip using fightOrSkip function
+      if (fightOrSkip()) {
+        // if true, leave fight by breaking loop
+        break;
+      }
+
 
     // generate random damage value based on player's attack power
         var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
 
+    // remove enemy's health by subtracting the amount we set in the damage variable
         enemy.health = Math.max(0, enemy.health - damage);
 
     console.log(
@@ -137,7 +150,12 @@ var fight = function(enemy) {
     // check enemy's health
     if (enemy.health <= 0) {
       window.alert(enemy.name + " has died!");
+
+         // award player money for winning
+         playerInfo.money = playerInfo.money + 20;
+
       break;
+
     } else {
       window.alert(enemy.name + " still has " + enemy.health + " health left.");
     }
@@ -153,18 +171,20 @@ var fight = function(enemy) {
     // check player's health
     if (playerInfo.health <= 0) {
       window.alert(playerInfo.name + " has died!");
+      // leave while() loop if player is dead
       break;
     } else {
       window.alert(playerInfo.name + " still has " + playerInfo.health + " health left.");
     }
-
-    
   } 
+  
+      // switch turn order for next round
+      isPlayerTurn = !isPlayerTurn;
+    }
   
   
   }
   
-    
 
 // run fight function to start game
 var startGame = function() {
@@ -248,8 +268,9 @@ var shop = function(){
       "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one 1 for REFILL, 2 for UPGRADE, or 3 for LEAVE."
       );
 
+      shopOptionPrompt = parseInt(shopOptionPrompt);
+
       // use switch to carry out action
-      debugger;
       switch (shopOptionPrompt) {
         case 1:
         playerInfo.refillHealth();
