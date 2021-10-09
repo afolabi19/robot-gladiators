@@ -1,3 +1,16 @@
+var getPlayerName = function() {
+  var name = "";
+
+// ***************************************
+while (name === "" || name === null) {
+  name = prompt("What is your robot's name?");
+}
+// ***************************************
+
+  console.log("Your robot's name is " + name);
+  return name;
+};
+
 var playerInfo = {
     name: getPlayerName(),
     health: 100,
@@ -156,6 +169,8 @@ var fight = function(enemy) {
 // run fight function to start game
 var startGame = function() {
 
+  
+
     // reset player stats
     playerInfo.reset();
   
@@ -165,7 +180,6 @@ for(var i = 0; i < enemyInfo.length; i++) {
     if (playerInfo.health > 0) {
         // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
         window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
-        debugger;
     
         // pick new enemy to fight based on the index of the enemyNames array
         var pickedEnemyObj = enemyInfo[i];
@@ -231,21 +245,19 @@ var endGame = function() {
 var shop = function(){
     // ask player what they'd like to do
     var shopOptionPrompt = window.prompt(
-      "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
+      "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one 1 for REFILL, 2 for UPGRADE, or 3 for LEAVE."
       );
 
       // use switch to carry out action
+      debugger;
       switch (shopOptionPrompt) {
-        case "REFILL":
-        case "refill":
+        case 1:
         playerInfo.refillHealth();
         break;
-        case "UPGRADE":
-        case "upgrade":
+        case 2:
         playerInfo.upgradeAttack();
         break;
-        case "LEAVE": // new case
-        case "leave":
+        case 3:
           window.alert("Leaving the store.");
           break;
         default:
@@ -260,18 +272,6 @@ var shop = function(){
 
 
 // function to set name
-var getPlayerName = function() {
-  var name = "";
-
-// ***************************************
-while (name === "" || name === null) {
-  name = prompt("What is your robot's name?");
-}
-// ***************************************
-
-  console.log("Your robot's name is " + name);
-  return name;
-};
 
 
 // start the game when the page loads
